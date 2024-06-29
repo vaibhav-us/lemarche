@@ -29,8 +29,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         messages = await self.get_previous_messages()
         for message in messages:
             await self.send(text_data=json.dumps({
-                'message': message.message,
-                'user': message.user
+                'message': message['message'],
+                'user': message['user']
             }))
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
@@ -71,11 +71,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @sync_to_async
     def get_previous_messages(self):
-        try:
-            messages = Message.objects.filter(room=self.room).order_by('id')
-            return list(messages.values('message', 'user'))
-        except Message.DoesNotExist:
-            return []  # Return an empty queryset
+        messages = Message.objects.filter(room=self.room).order_by('id')
+        return list(messages.values('message', 'user'))
 
         
         
