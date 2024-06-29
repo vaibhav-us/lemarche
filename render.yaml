@@ -1,20 +1,20 @@
 databases:
-  - name: mysitedb
+  - name: lemarchedb
     plan: free
-    databaseName: mysite
-    user: mysite
+    databaseName: lemarche
+    user: lemarche
 
 services:
   - type: web
     plan: free
-    name: mysite
+    name: lemarche
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker"
+    startCommand: "python -m gunicorn lemarche.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: mysitedb
+          name: lemarchedb
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
