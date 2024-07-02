@@ -81,6 +81,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def get_or_create_room(self, user1, user2):
         user1 = UserModel.objects.get(id=user1)
         user2 = UserModel.objects.get(id=user2)
-        room, created = Room.objects.get_or_create(user1=user1, user2=user2)
+        room  = Room.objects.get(user1=user1, user2=user2)
         return room
     

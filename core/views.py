@@ -105,7 +105,8 @@ def retrieve_update_acc(request, id):
             }
             return Response({"data": data})
         except UserModel.DoesNotExist:
-            user = UserModel.objects.create(email=id, name='new user', contactNo=000000)
+            campus = Campus.objects.get(id=1)
+            user = UserModel.objects.create(email=id, name='new user', contactNo=000000,campus=campus)
             user.save()
             user_serializer = UserModelSerializer(user)
             return Response({"data": user_serializer.data})
@@ -140,11 +141,18 @@ def list_campuses(request):
 def list_rooms(request,id):
     user = UserModel.objects.get(id=id)
     rooms = Room.objects.filter(
-        Q(user1__email=user.email) |
-        Q(user2__email = user.email)
+        Q(user1=user) |
+        Q(user2 = user)
     )
 
     rooms_serializer = RoomSerializer(rooms,many=True)
     return Response({'data':rooms_serializer.data})
-   
+
+@api_view(['GET'])
+def retrieve_room(request,buyer,seller):
+    buyer = UserModel.objects.get(id=buyer)
+    seller = UserModel.objects.get(id=seller)
+    room,created = Room.objects.get_or_create(user1=buyer,user2=seller)
+    room_serializer = RoomSerializer(room)
+    return Response({'data':room_serializer.data})
 
