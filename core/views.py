@@ -149,10 +149,11 @@ def list_rooms(request,id):
     return Response({'data':rooms_serializer.data})
 
 @api_view(['GET'])
-def retrieve_room(request,buyer,seller):
+def retrieve_room(request,buyer,seller,id):
     buyer = UserModel.objects.get(id=buyer)
     seller = UserModel.objects.get(id=seller)
-    room,created = Room.objects.get_or_create(user1=buyer,user2=seller)
+    product = Product.objects.get(id=id)
+    room,created = Room.objects.get_or_create(user1=buyer,user2=seller,product=product)
     room_serializer = RoomSerializer(room)
     return Response({'data':room_serializer.data})
 

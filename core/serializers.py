@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from .models import Product,Category,UserModel,Campus,Message,Room
+from rest_framework import serializers
 
 class ProductSerializer(ModelSerializer):
     class Meta:
@@ -22,10 +23,12 @@ class CampusSerializer(ModelSerializer):
         model = Campus
         fields ='__all__'
 
-class RoomSerializer(ModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source='product.title', read_only=True)
+
     class Meta:
         model = Room
-        fields ='__all__'
+        fields = '__all__'
 
 class MessageSerializer(ModelSerializer):
     class Meta:
