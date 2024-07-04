@@ -10,5 +10,5 @@ urlpatterns = [
     path('user/<str:usr>/prod/<str:prod>/like/',views.like_retrive_products),
     path('list_campuses/',views.list_campuses),
     path('user/<str:id>/rooms/',views.list_rooms),
-    path('getroom/<str:user1>/<str:user2>/',views.retrieve_room),
+    path('getroom/<str:buyer>/<str:seller>/',views.retrieve_room),
 ]
