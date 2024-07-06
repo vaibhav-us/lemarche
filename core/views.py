@@ -89,7 +89,7 @@ def create_list_myads(request,id):
         ad_data = ProductSerializer(ad)
         return Response(ad_data.data)
 
-@api_view(['PUT'])
+@api_view(['PUT','DELETE'])
 def update_ad(request,id,user):
     try:
         ad = Product.objects.get(id=id)
