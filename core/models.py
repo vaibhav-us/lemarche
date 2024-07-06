@@ -35,11 +35,11 @@ class Product(models.Model):
     brand = models.CharField(max_length = 50, null =True, blank =True)
     description = models.TextField(max_length=600, null =True, blank =True)
     price = models.IntegerField()
-    datePosted = models.DateTimeField(auto_now = True)
-    status = models.BooleanField(default = True)
+    datePosted = models.DateTimeField(auto_now = True,null=True,blank=True)
+    status = models.BooleanField(default = True,blank=True)
     imgUrl = models.TextField(max_length=200, null =True, blank =True)
     liked_by = models.ManyToManyField(UserModel,related_name="liked_by", blank=True)
-    campus = models.ForeignKey(Campus,on_delete=models.CASCADE, default=1)
+    campus = models.ForeignKey(Campus,on_delete=models.CASCADE, default=1,blank=True)
 
     def __str__(self):
         return self.title

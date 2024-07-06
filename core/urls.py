@@ -6,6 +6,7 @@ urlpatterns = [
     path('categories/',views.list_categories),
     path('user/<str:id>/liked_products/',views.list_liked_products),
     path('user/<str:id>/my_ads/',views.create_list_myads),
+    path('user/<str:user>/prod/<str:id>/',views.update_ad),
     path('user/<str:id>/',views.retrieve_update_acc),
     path('user/<str:usr>/prod/<str:prod>/like/',views.like_retrive_products),
     path('list_campuses/',views.list_campuses),

@@ -76,7 +76,6 @@ def create_list_myads(request,id):
         data = ProductSerializer(products,many=True)
         return Response({"data":data.data})
     elif request.method == 'POST':
-        
         category = request.data['category']
         category_model = Category.objects.get(categoryName = category)
         title = request.data['title']
@@ -89,6 +88,30 @@ def create_list_myads(request,id):
         ad.save()
         ad_data = ProductSerializer(ad)
         return Response(ad_data.data)
+
+@api_view(['PUT'])
+def update_ad(request,id,user):
+    try:
+        ad = Product.objects.get(id=id)
+        user_model = UserModel.objects.get(email=user)
+    except Product.DoesNotExist:
+        return Response({'error': 'Ad not found'}, status=404)
+    if request.method =='PUT':
+        ad.userId=user_model
+        ad.categoryId = Category.objects.get(id=request.data['category'])
+        ad.title = request.data['title']
+        ad.brand = request.data['brand']
+        ad.description = request.data['description']
+        ad.imgUrl = request.data['imgUrl']
+        ad.price = request.data['price']
+        ad.campus = user_model.campus  
+
+        ad.save()
+        ad_data = ProductSerializer(ad)
+        return Response(ad_data.data)
+    elif request.method == 'DELETE':
+        ad.delete()
+        return Response("deleted")
 
 
 
