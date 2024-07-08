@@ -79,7 +79,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         
 
     @sync_to_async
-    def get_or_create_room(self, user1, user2):
+    def get_or_create_room(self, user1, user2,product):
         user1 = UserModel.objects.get(id=user1)
         user2 = UserModel.objects.get(id=user2)
         product = Product.objects.get(id = product)
