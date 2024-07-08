@@ -90,15 +90,17 @@ WSGI_APPLICATION = 'lemarche.wsgi.application'
 
 
 CHANNEL_LAYERS = {
-    'default':  {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [os.environ.get('REDIS_URL')],
-        },
-    },
+    'default':   {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
 }
 
-
+#    {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [os.environ.get('REDIS_URL')],
+#         },
+#     },
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
