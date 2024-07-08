@@ -26,6 +26,8 @@ class CampusSerializer(ModelSerializer):
 class RoomSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(source='product.title', read_only=True)
     product_img = serializers.CharField(source='product.imgUrl', read_only=True)
+    buyer_name = serializers.CharField(source='user1.name', read_only=True)
+    seller_name = serializers.CharField(source='user2.name', read_only=True)
 
 
     class Meta:
